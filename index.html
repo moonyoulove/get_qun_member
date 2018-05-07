@@ -1,39 +1,27 @@
 <!DOCTYPE html>
 <html>
-  
-  <head>
-    <meta charset="utf-8">
-  </head>
-  
-  <body>
-    <input name="CheckBox1" type="checkbox" value="" title="" id="checkbox_78055da2">
-    <span class="textstyle2">
-      轉換頭像網址
-      <br/>
-    </span>
-    <input name="CheckBox2" type="checkbox" value="" title="" id="checkbox_25bd00f2">
-    <span class="textstyle2">
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+<input type="checkbox"id="cbox_convert">
+      轉換頭像網址<br>
+<input type="checkbox" id="cbox_addTitle">
       加入專屬頭銜
-      <br/>
-      <br/>
-    </span>
-    <textarea name="TextEdit1" title="" cols="19" rows="8" id="edit_c31bbfd">
-    </textarea>
-    <span class="textstyle2">
-      <br/>
-      <br/>
-    </span>
-    <input name="Button1" type="button" value="獲取成員" title="" disabled="disabled"
-    id="button_4aba8bf3">
-    <script type="text/javascript">
+	  <br>
+<br>
+<textarea name="TextEdit1" title="" cols="19" rows="8" id="textarea"></textarea><br>
+<br>
+<input name="Button1" type="button" value="獲取成員" title="" disabled="disabled" id="button">
+<script type="text/javascript">
       var group = {};
       var pt = {};
       var logo_left_count = 0;
       var script = {};
-      var cbox_convert = document.getElementById("checkbox_78055da2");
-      var cbox_addTitle = document.getElementById("checkbox_25bd00f2");
-      var textarea = document.getElementById("edit_c31bbfd");
-      var button = document.getElementById("button_4aba8bf3");
+      var cbox_convert = document.getElementById("cbox_convert");
+      var cbox_addTitle = document.getElementById("cbox_addTitle");
+      var textarea = document.getElementById("textarea");
+      var button = document.getElementById("button");
       cbox_addTitle.onclick = function() {
         if (cbox_addTitle.checked) {
           textarea.defaultValue = '[{nick:"muli",title:"編程組"}]';
@@ -59,11 +47,8 @@
         group.mems[logo_left_count].logo = url_data[group.mems[logo_left_count].uin];
         if (logo_left_count > 0) {
           logo_left_count--;
-          textarea.value = `剩餘$ {
-            logo_left_count
-          }個頭像`;
-          script = document.createElement("
-            script ");
+          textarea.value = `剩餘${logo_left_count}個頭像`;
+          script = document.createElement("script");
           script.src = logo_url + group.mems[logo_left_count].uin;
           document.body.appendChild(script);
         } else {
@@ -86,14 +71,11 @@
       }
       function convertLogoUrl() {
         logo_left_count = group.mems.length - 1;
-        textarea.value = `剩餘$ {
-          logo_left_count
-        }個頭像`;
+        textarea.value = `剩餘$ {logo_left_count}個頭像`;
         script = document.createElement("script");
         script.src = logo_url + group.mems[logo_left_count].uin;
         document.body.appendChild(script);
       }
     </script>
-  </body>
-
+</body>
 </html>
