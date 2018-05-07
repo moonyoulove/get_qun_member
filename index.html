@@ -71,7 +71,7 @@
       }
       function convertLogoUrl() {
         logo_left_count = group.mems.length - 1;
-        textarea.value = `剩餘$ {logo_left_count}個頭像`;
+        textarea.value = `剩餘${logo_left_count}個頭像`;
         script = document.createElement("script");
         script.src = logo_url + group.mems[logo_left_count].uin;
         document.body.appendChild(script);
