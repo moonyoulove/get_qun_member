@@ -50,7 +50,7 @@
         }
       }
       window.onmessage = function(e) {
-        if (e.origin != "https:/ / qun.qq.com ") return;
+        if (e.origin != "https://qun.qq.com") return;
         group = e.data;
         button.disabled = false;
       }
@@ -75,7 +75,7 @@
           return a.join_time - b.join_time
         });
         if (textarea.value == "") {
-          alert("請貼上數據 !! ");
+          alert("請貼上數據!!");
           return;
         }
         var st = JSON.parse(textarea.value);
@@ -89,8 +89,7 @@
         textarea.value = `剩餘$ {
           logo_left_count
         }個頭像`;
-        script = document.createElement("
-            script ");
+        script = document.createElement("script");
         script.src = logo_url + group.mems[logo_left_count].uin;
         document.body.appendChild(script);
       }
