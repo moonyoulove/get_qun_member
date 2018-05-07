@@ -38,9 +38,18 @@
 	var pt = {};
 	var logo_left_count = 0;
 	var script = {};
-
+	var cbox_convert = document.getElementById("checkbox_78055da2");
+	var cbox_addTitle = document.getElementById("checkbox_25bd00f2");
+	var textarea = document.getElementById("edit_c31bbfd");
+	var button = document.getElementById("button_4aba8bf3");
 	var xhr = new XMLHttpRequest();
-
+	cbox_addTitle.onclick = function() {
+	if(cbox_addTitle.checked) {
+	textarea.defaultValue = '[{nick:"muli",title:"編程組"}]';
+	} else {
+		textarea.defaultValue = "";
+	}
+	}
 	xhr.open("get", `$ {
 		qun_url
 	} & bkn = $ {
@@ -52,11 +61,13 @@
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			group = JSON.parse(xhr.responseText);
-			if (confirm("是否要加入專屬頭銜?")) addSpecialTitle();
-			if (confirm("是否要轉換頭像網址?")) {
-				convertLogoUrl()
+			button.onclick = function(){
+			if(cbox_addTitle.checked) addSpecialTitle();
+			if(cbox_convert.checked){
+			convertLogoUrl();
 			} else {
-				alert(JSON.stringify(group.mems));
+				textarea.value = JSON.stringify(group.mems);
+			}
 			}
 		}
 	}
@@ -66,13 +77,12 @@
 		group.mems[logo_left_count].logo = url_data[group.mems[logo_left_count].uin];
 		if (logo_left_count > 0) {
 			logo_left_count--;
-			dialog.innerText = logo_left_count;
+			textarea.value = `剩餘${logo_left_count}個頭像`;
 			script = document.createElement("script");
 			script.src = logo_url + group.mems[logo_left_count].uin;
 			document.body.appendChild(script);
 		} else {
-			dialog.innerText = "完成";
-			alert(JSON.stringify(group.mems));
+			textarea.value = JSON.stringify(group.mems);
 		}
 	}
 
@@ -80,9 +90,12 @@
 		group.mems.sort(function(a, b) {
 			return a.join_time - b.join_time
 		});
-		var p = prompt("貼上專屬頭銜的數組", "[{nick:\"muli\",title:\"編程組\"}]");
-		if (p == null || p == "") return;
-		var st = JSON.parse(p);
+
+		if (textarea.value == ""){
+			alert("請貼上數據!!");
+			return;
+		}
+		var st = JSON.parse(textarea.value);
 		var l = group.mems.length;
 		while (l--) {
 			group.mems[l].title = st[l].title;
@@ -90,8 +103,7 @@
 	}
 	function convertLogoUrl() {
 		logo_left_count = group.mems.length - 1;
-		dialog.innerText = logo_left_count;
-		document.body.appendChild(dialog);
+		textarea.value = `剩餘${logo_left_count}個頭像`;
 		script = document.createElement("script");
 		script.src = logo_url + group.mems[logo_left_count].uin;
 		document.body.appendChild(script);
