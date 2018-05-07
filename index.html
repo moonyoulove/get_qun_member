@@ -39,7 +39,7 @@
               <br/>
               <br/>
             </span>
-            <input name="Button1" type="button" value="獲取成員" title="" style="vertical-align: bottom; position:relative; display: inline-block; width:100px; height:30px; font-size:12pt; font-family:Arial, Helvetica, sans-serif; color:#000000; "
+            <input name="Button1" type="button" value="獲取成員" disabled="true" title="" style="vertical-align: bottom; position:relative; display: inline-block; width:100px; height:30px; font-size:12pt; font-family:Arial, Helvetica, sans-serif; color:#000000; "
             id="button_4aba8bf3">
           </div>
           <div style="clear:both">
@@ -64,33 +64,18 @@
           textarea.defaultValue = "";
         }
       }
+      button.onclick = function() {
+        if (cbox_addTitle.checked) addSpecialTitle();
+        if (cbox_convert.checked) {
+          convertLogoUrl();
+        } else {
+          textarea.value = JSON.stringify(group.mems);
+        }
+      }
       window.onmessage = function(e) {
         if (e.origin != "https://qun.qq.com") return;
-        var bkn = e.data[0];
-        var gc = e.data[1];
-        var qun_url = "https://qun.qq.com/cgi-bin/qun_mgr/search_group_members?st=0&end=1000";
-        var logo_url = "https://ptlogin2.qq.com/getface?&imgtype=4&uin=";
-        xhr.open("get", `$ {
-          qun_url
-        } & bkn = $ {
-          bkn
-        } & gc = $ {
-          gc
-        }`, true);
-        xhr.send();
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState == 4 && xhr.status == 200) {
-            group = JSON.parse(xhr.responseText);
-            button.onclick = function() {
-              if (cbox_addTitle.checked) addSpecialTitle();
-              if (cbox_convert.checked) {
-                convertLogoUrl();
-              } else {
-                textarea.value = JSON.stringify(group.mems);
-              }
-            }
-          }
-        }
+        group = e.data;
+		button.disabled = false;
       }
 
       pt.setHeader = function(url_data) {
