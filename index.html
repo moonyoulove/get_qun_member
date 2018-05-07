@@ -1,53 +1,31 @@
 <!DOCTYPE html>
 <html>
-  
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="RocketCake">
-    <title>
-    </title>
-    <style type="text/css">
-      a { color:#5D5D9E; } a:visited { color:#5D5D9E; } a:active { color:#5C615E;
-      } a:hover { color:#B2B3B4; }
-    </style>
-  </head>
-  
-  <body style="background-color:#FFFFFF; padding:0;  margin: 0;">
-    <div style="text-align:center;">
-      <div style="vertical-align: top; position:relative; display: inline-block; width:23%; min-height:318px; background:none; "
-      id="container_1789df23">
-        <div style="margin: 10px; display: block; " id="container_1789df23_padding">
-          <div style="text-align:left;">
-            <input name="CheckBox1" type="checkbox" value="" title="" style="vertical-align: bottom; position:relative; display: inline-block; width:20px; height:20px; "
-            id="checkbox_78055da2">
-            <span style="font-size:12pt; font-family:Arial, Helvetica, sans-serif; color:#000000; ">
-              轉換頭像網址
-              <br/>
-            </span>
-            <input name="CheckBox2" type="checkbox" value="" title="" style="vertical-align: bottom; position:relative; display: inline-block; width:20px; height:20px; "
-            id="checkbox_25bd00f2">
-            <span style="font-size:12pt; font-family:Arial, Helvetica, sans-serif; color:#000000; ">
-              加入專屬頭銜
-              <br/>
-              <br/>
-            </span>
-            <textarea name="TextEdit1" title="" cols="19" rows="8" style="box-sizing: border-box; vertical-align: bottom; position:relative; display: inline-block; width:195px; height:174px; background-color:#FFFFFF; border: 1px solid #A0A0A0; font-size:12pt; font-family:Arial, Helvetica, sans-serif; color:#000000; "
-            id="edit_c31bbfd">
-            </textarea>
-            <span style="font-size:12pt; font-family:Arial, Helvetica, sans-serif; color:#000000; ">
-              <br/>
-              <br/>
-            </span>
-            <input name="Button1" type="button" value="獲取成員" disabled="true" title="" style="vertical-align: bottom; position:relative; display: inline-block; width:100px; height:30px; font-size:12pt; font-family:Arial, Helvetica, sans-serif; color:#000000; "
-            id="button_4aba8bf3">
-          </div>
-          <div style="clear:both">
-          </div>
-        </div>
-      </div>
-    </div>
-    <script>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="RocketCake">
+<title></title>
+<link rel="stylesheet" type="text/css" href="index_html.css">
+</head>
+<body>
+<div class="textstyle1">
+	<div id="container_1789df23">
+		<div id="container_1789df23_padding">
+			<div class="textstyle1">
+				<input name="CheckBox1" type="checkbox" value="" title="" id="checkbox_78055da2">
+				<span class="textstyle2">轉換頭像網址<br/></span>
+				<input name="CheckBox2" type="checkbox" value="" title="" id="checkbox_25bd00f2">
+				<span class="textstyle2">加入專屬頭銜<br/><br/></span>
+				<textarea name="TextEdit1" title="" cols="19" rows="8" id="edit_c31bbfd"></textarea>
+				<span class="textstyle2"><br/><br/></span>
+				<input name="Button1" type="button" value="獲取成員" title="" disabled="disabled" id="button_4aba8bf3">
+			</div>
+			<div style="clear:both">
+			</div>
+		</div>
+	</div>
+</div>
+<script>
       var group = {};
       var pt = {};
       var logo_left_count = 0;
@@ -56,7 +34,6 @@
       var cbox_addTitle = document.getElementById("checkbox_25bd00f2");
       var textarea = document.getElementById("edit_c31bbfd");
       var button = document.getElementById("button_4aba8bf3");
-      var xhr = new XMLHttpRequest();
       cbox_addTitle.onclick = function() {
         if (cbox_addTitle.checked) {
           textarea.defaultValue = '[{nick:"muli",title:"編程組"}]';
@@ -77,15 +54,12 @@
         group = e.data;
 		button.disabled = false;
       }
-
       pt.setHeader = function(url_data) {
         script.remove();
         group.mems[logo_left_count].logo = url_data[group.mems[logo_left_count].uin];
         if (logo_left_count > 0) {
           logo_left_count--;
-          textarea.value = `剩餘$ {
-            logo_left_count
-          }個頭像`;
+          textarea.value = `剩餘${logo_left_count}個頭像`;
           script = document.createElement("script");
           script.src = logo_url + group.mems[logo_left_count].uin;
           document.body.appendChild(script);
@@ -93,12 +67,10 @@
           textarea.value = JSON.stringify(group.mems);
         }
       }
-
       function addSpecialTitle() {
         group.mems.sort(function(a, b) {
           return a.join_time - b.join_time
         });
-
         if (textarea.value == "") {
           alert("請貼上數據!!");
           return;
@@ -111,14 +83,11 @@
       }
       function convertLogoUrl() {
         logo_left_count = group.mems.length - 1;
-        textarea.value = `剩餘$ {
-          logo_left_count
-        }個頭像`;
+        textarea.value = `剩餘${logo_left_count}個頭像`;
         script = document.createElement("script");
         script.src = logo_url + group.mems[logo_left_count].uin;
         document.body.appendChild(script);
       }
     </script>
-  </body>
-
+</body>
 </html>
